@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2012-10-03T15:48:07-04:00</updated>
+  <updated>2012-10-03T16:51:16-04:00</updated>
   <id>http://yoursite.com/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -19,15 +19,6 @@
     <updated>2012-10-03T15:45:00-04:00</updated>
     <id>http://yoursite.com/blog/2012/10/03/first-post</id>
     <content type="html"><![CDATA[<p>&#8220;Hello World&#8221;</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[new-post]]></title>
-    <link href="http://yoursite.com/blog/2012/10/03/new-post/"/>
-    <updated>2012-10-03T15:44:00-04:00</updated>
-    <id>http://yoursite.com/blog/2012/10/03/new-post</id>
-    <content type="html"><![CDATA[
 ]]></content>
   </entry>
   

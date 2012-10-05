@@ -2,9 +2,9 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://blog.seldomatt.com
-title: SeldomBlog
-subtitle: Artist. Musician.  Programmer-to-be.
+url:  http://blog.seldomatt.com
+title:  SeldomBlog
+subtitle:  Artist. Musician. Programmer-to-be.
 author: seldomatt
 simple_search: http://google.com/search
 description:

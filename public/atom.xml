@@ -4,7 +4,7 @@
   <title><![CDATA[SeldomBlog]]></title>
   <link href="http://blog.seldomatt.com/atom.xml" rel="self"/>
   <link href="http://blog.seldomatt.com/"/>
-  <updated>2012-10-08T14:40:17-04:00</updated>
+  <updated>2012-10-08T14:48:07-04:00</updated>
   <id>http://blog.seldomatt.com/</id>
   <author>
     <name><![CDATA[seldomatt]]></name>
@@ -59,15 +59,6 @@ This is your PATH environment variable.  It&#8217;s a list of directories that B
 
 <p>And that&#8217;s the PATH.  An environment variable that provides BASH with instructions on where to look for things.  If you&#8217;re ever running into an issue with BASH not recognizing a command or program, check your PATH first; it may be as easy as telling BASH where to look.  Now, go forth and wander.</p>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[First Post]]></title>
-    <link href="http://blog.seldomatt.com/blog/2012/10/03/first-post/"/>
-    <updated>2012-10-03T15:45:00-04:00</updated>
-    <id>http://blog.seldomatt.com/blog/2012/10/03/first-post</id>
-    <content type="html"><![CDATA[<p>&#8220;Hello World&#8221;</p>
 ]]></content>
   </entry>
   

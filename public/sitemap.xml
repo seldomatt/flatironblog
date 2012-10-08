@@ -1,10 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://blog.seldomatt.com/blog/2012/10/03/first-post/</loc>
-        <lastmod>2012-10-03T16:48:38-04:00</lastmod>
-    </url>
-    <url>
         <loc>http://blog.seldomatt.com/blog/2012/10/08/bash-and-the-one-true-path/</loc>
         <lastmod>2012-10-08T14:40:16-04:00</lastmod>
     </url>

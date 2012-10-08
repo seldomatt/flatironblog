@@ -98,41 +98,12 @@
 
 <p><img src="../images/path_post_img.jpg" alt="hiker on the $PATH"></p>
 
-<p>When BASH starts, it creates an environment for your shell session by executing commands from a few different scripts.  These include ~/.bash_profile, ~/.bash_login, and ~/.bash_rc.  Since BASH looks in your .bash_profile first, you should be setting most of your environment variables and methods there (though read up on .bash_login/.bash_rc, because they&#8217;ll be invoked under certain conditions and, reading is good for you).  Let&#8217;s take a look in our bash_profile (I&#8217;m using SublimeText, hence the &#8216;subl&#8217; command, but use whatever editor you&#8217;ve got):</br>
-</br>
-<strong>$ cd ~</strong></br>
-<strong>$ subl .bash_profile</strong></br>
-</br>
-What you&#8217;ll likely see (among other things we&#8217;re going to ignore in this post) is a line that reads PATH = $PATH.  Those of you quicker than myself will instantly recognize that this is setting the variable named PATH.  You can call that variable with $PATH (this is the syntax BASH uses, like var in Javascript).  Jump back into your command line and type in $PATH.  What you&#8217;ll see printed to the screen is something like this:</br>
-</br>
-<strong>$ $PATH</strong></br>
-<strong>-bash: /bin:/usr/local/bin:/usr/bin:/Users/Username/bin:</strong></br>
-</br>
-This is your PATH environment variable.  It&#8217;s a list of directories that BASH will look in for commands, scripts, and programs.  The filepaths to those directories are separated by &#8216;:&#8217;, and the directories are checked in order.  So, when you type &#8216;git&#8217; to access the git revision control program from your command line, BASH will first check your ~/bin directory, then your ~/usr/local/bin directory, then ~/usr/bin, and so on.  As soon as BASH finds what it&#8217;s looking for (in this case, &#8216;git&#8217;), it&#8217;ll execute the command and stop travelling down the PATH.  The PATH environment variable is like a map that BASH consults every time you tell it do something.  The map says &#8216;Go here first, and if you don&#8217;t find what you&#8217;re looking for, go here, or else go here, etc., etc&#8230;&#8217;</p>
-
-
-<p></p>
-
-<p>Seems simple enough, and it is, but there are a few things to keep in mind.</p>
-
-
-
-
-<p>BASH, like all programs, is pretty dumb - it only knows what you teach it.  So if you want to execute a script or program from your command line, you&#8217;re going to need to make sure it&#8217;s in your $PATH, or else BASH won&#8217;t know where to look.  I recently ran into an issue when trying to run Postgres.app from the command line.  The documentation told me to add the /Applications/Postgres.app/Contents/MacOS/bin directory to my PATH, so I did.  I was then supposed to be able to run &#8216;psql&#8217; from the command line to startup Postgres, but it didn&#8217;t work.  In what I would like to tell you was a very short amount of time spent running the same command and pulling my hair out, I realized that Postgres.app was still in my /Downloads directory, not in /Applications. But the directory I&#8217;d added to my PATH was supposed to be in /Applications, not /Downloads, and as mentioned, BASH will only check the directories in your PATH, and nowhere else.  So I moved Postgres from my /Downloads dir to /Applications, and voila - everything worked, my blood pressure came down, and I learned a little bit about how the PATH works.</p>
-
-
-
-
-<p>It&#8217;s also important to remember that BASH will stop looking for a program or script once it finds a match, so the sequence of directories in your PATH is important.  If you have two different versions of a program saved in different places, (say, one version in /usr/bin, and one version in usr/local/bin), BASH will use the version located in the directory that appears first in your PATH.  So if you think you&#8217;ve got a more recent version of a program installed, but for some reason BASH keeps loading the older version, check your PATH against the locations of your programs/scripts.  You can add a directory to the front of your path by opening your bash_profile and adjusting your PATH = line like so:</br></br>
-<strong>PATH = &#8220;path/to/new/dir:$PATH&#8221;</strong></p>
-
-
-
-
-<p>And that&#8217;s the PATH.  An environment variable that provides BASH with instructions on where to look for things.  If you&#8217;re ever running into an issue with BASH not recognizing a command or program, check your PATH first; it may be as easy as telling BASH where to look.  Now, go forth and wander.</p>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/08/bash-and-the-one-true-path/">Read on &rarr;</a>
+    </footer>
   
 
 

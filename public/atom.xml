@@ -4,7 +4,7 @@
   <title><![CDATA[SeldomBlog]]></title>
   <link href="http://blog.seldomatt.com/atom.xml" rel="self"/>
   <link href="http://blog.seldomatt.com/"/>
-  <updated>2012-10-08T14:33:29-04:00</updated>
+  <updated>2012-10-08T14:40:17-04:00</updated>
   <id>http://blog.seldomatt.com/</id>
   <author>
     <name><![CDATA[seldomatt]]></name>
@@ -22,6 +22,9 @@
 
 
 <p><img src="../images/path_post_img.jpg" alt="hiker on the $PATH"></p>
+
+<!--more-->
+
 
 <p>When BASH starts, it creates an environment for your shell session by executing commands from a few different scripts.  These include ~/.bash_profile, ~/.bash_login, and ~/.bash_rc.  Since BASH looks in your .bash_profile first, you should be setting most of your environment variables and methods there (though read up on .bash_login/.bash_rc, because they&#8217;ll be invoked under certain conditions and, reading is good for you).  Let&#8217;s take a look in our bash_profile (I&#8217;m using SublimeText, hence the &#8216;subl&#8217; command, but use whatever editor you&#8217;ve got):</br>
 </br>

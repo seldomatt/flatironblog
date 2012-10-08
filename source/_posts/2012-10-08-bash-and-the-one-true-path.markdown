@@ -8,7 +8,7 @@ categories:
 
 <p>As a nuby programmer, you're going to be cozying up to your command line in ways you never before imagined.  You'll be cd'ing, ls'ing, grep'ing, and (carefully) rm -rf'ing your way around your filesystem, and, for Linux and OSX users like me, you'll be using BASH to do it.  BASH is a command processing program that reads the input you type into your command line and does things with it.  You can read more about it <a href="http://en.wikipedia.org/wiki/Bash_(Unix_shell)" target="_blank">here</a>, and <a href="http://www.linuxfromscratch.org/blfs/view/svn/postlfs/profile.html" target="_blank">here</a>, but the real topic of this post is the special little beast known as the <strong>PATH</strong>, so let's get to it.</p>
 
-<img src="../images/path_post_img.png" alt="hiker on the $PATH">
+<img src="../images/path_post_img.jpg" alt="hiker on the $PATH">
 
 
 <p>When BASH starts, it creates an environment for your shell session by executing commands from a few different scripts.  These include ~/.bash_profile, ~/.bash_login, and ~/.bash_rc.  Since BASH looks in your .bash_profile first, you should be setting most of your environment variables and methods there (though read up on .bash_login/.bash_rc, because they'll be invoked under certain conditions and, reading is good for you).  Let's take a look in our bash_profile (I'm using SublimeText, hence the 'subl' command, but use whatever editor you've got):</br>

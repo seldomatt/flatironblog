@@ -10,7 +10,7 @@ categories:
 
 {% img ../images/pathpostimg.jpg 'hiker on the path' %}
 
-<!--more-->
+
 <p>When BASH starts, it creates an environment for your shell session by executing commands from a few different scripts.  These include ~/.bash_profile, ~/.bash_login, and ~/.bash_rc.  Since BASH looks in your .bash_profile first, you should be setting most of your environment variables and methods there (though read up on .bash_login/.bash_rc, because they'll be invoked under certain conditions and, reading is good for you).  Let's take a look in our bash_profile (I'm using SublimeText, hence the 'subl' command, but use whatever editor you've got):</br>
 </br>
 <strong>$ cd ~</strong></br>

@@ -4,7 +4,7 @@
   <title><![CDATA[SeldomBlog]]></title>
   <link href="http://blog.seldomatt.com/atom.xml" rel="self"/>
   <link href="http://blog.seldomatt.com/"/>
-  <updated>2012-10-14T22:33:28-04:00</updated>
+  <updated>2012-10-15T09:36:50-04:00</updated>
   <id>http://blog.seldomatt.com/</id>
   <author>
     <name><![CDATA[seldomatt]]></name>
@@ -20,6 +20,8 @@
     <id>http://blog.seldomatt.com/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown</id>
     <content type="html"><![CDATA[<p>Early on in your quest to learn Ruby, you&#8217;re going to encounter <strong>&#8216;blocks&#8217;</strong>.  These little packets of code that can be passed to methods may make you sweat a little at first, but soon enough, passing blocks to Enumerable instance methods like &#8216;each&#8217; and &#8216;map&#8217; will be second nature.  Then, one day, you&#8217;ll encounter (gulp), a <strong>&#8216;proc&#8217;</strong>, or (bigger gulp), a <strong>&#8216;lambda&#8217;</strong>, and you&#8217;ll question why you ever got into this coding business in the first place.  Luckily, you can cast those doubts aside, because despite the intimidating names, procs and lambdas are really just blocks stored as variables.  Let&#8217;s take a minute to break this love triangle apart and examine the subtle differences between blocks, procs and lambdas.</p>
 
+
+<p><img class="center" src="http://blog.seldomatt.com/images/procsgunslinger.png" title="'blocks vs procs vs lambdas'" ></p>
 
 <h2>Blocks</h2>
 

@@ -2,20 +2,20 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://blog.seldomatt.com/blog/2012/10/08/bash-and-the-one-true-path/</loc>
-        <lastmod>2012-10-08T14:53:14-04:00</lastmod>
+        <lastmod>2012-10-15T09:58:50-04:00</lastmod>
     </url>
     <url>
         <loc>
             http://blog.seldomatt.com/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown/
         </loc>
-        <lastmod>2012-10-15T09:36:49-04:00</lastmod>
+        <lastmod>2012-10-15T09:58:48-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.seldomatt.com/blog/archives/</loc>
-        <lastmod>2012-10-15T09:36:49-04:00</lastmod>
+        <lastmod>2012-10-15T09:58:50-04:00</lastmod>
     </url>
     <url>
         <loc>http://blog.seldomatt.com/</loc>
-        <lastmod>2012-10-15T09:36:49-04:00</lastmod>
+        <lastmod>2012-10-15T09:58:50-04:00</lastmod>
     </url>
 </urlset>

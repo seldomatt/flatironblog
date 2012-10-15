@@ -7,7 +7,7 @@ categories:
 ---
 
 <p>Early on in your quest to learn Ruby, you're going to encounter <strong>'blocks'</strong>.  These little packets of code that can be passed to methods may make you sweat a little at first, but soon enough, passing blocks to Enumerable instance methods like 'each' and 'map' will be second nature.  Then, one day, you'll encounter (gulp), a <strong>'proc'</strong>, or (bigger gulp), a <strong>'lambda'</strong>, and you'll question why you ever got into this coding business in the first place.  Luckily, you can cast those doubts aside, because despite the intimidating names, procs and lambdas are really just blocks stored as variables.  Let's take a minute to break this love triangle apart and examine the subtle differences between blocks, procs and lambdas.</p>
-{% img center /images/procsgunslinger.png 'blocks vs procs vs lambdas' %}
+{% img center /images/procsgunslinger.jpg 'blocks vs procs vs lambdas' %}
 <h2>Blocks</h2>
 <p>Blocks are packets of code stored between <strong>'do...end'</strong> or <strong>'{}'</strong>.  They're a way of performing an action on a value returned by a method.
 ``` ruby Define and call a method that yields to a block

@@ -9,7 +9,7 @@
   <meta name="author" content="seldomatt">
 
   
-  <meta name="description" content="As a nuby programmer, you&#8217;re going to be cozying up to your command line in ways you never before imagined. You&#8217;ll be cd&#8217;ing, ls&# &hellip;">
+  <meta name="description" content="Early on in your quest to learn Ruby, you&#8217;re going to encounter &#8216;blocks&#8217;. These little packets of code that can be passed to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,217 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown/">Blocks vs. Procs vs. Lambdas: Ruby Closure Showdown</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-14T21:19:00-04:00" pubdate data-updated="true">Oct 14<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Early on in your quest to learn Ruby, you&#8217;re going to encounter <strong>&#8216;blocks&#8217;</strong>.  These little packets of code that can be passed to methods may make you sweat a little at first, but soon enough, passing blocks to Enumerable instance methods like &#8216;each&#8217; and &#8216;map&#8217; will be second nature.  Then, one day, you&#8217;ll encounter (gulp), a <strong>&#8216;proc&#8217;</strong>, or (bigger gulp), a <strong>&#8216;lambda&#8217;</strong>, and you&#8217;ll question why you ever got into this coding business in the first place.  Luckily, you can cast those doubts aside, because despite the intimidating names, procs and lambdas are really just blocks stored as variables.  Let&#8217;s take a minute to break this love triangle apart and examine the subtle differences between blocks, procs and lambdas.</p>
+
+
+<h2>Blocks</h2>
+
+
+<p>Blocks are packets of code stored between <strong>&#8216;do&#8230;end&#8217;</strong> or <strong>&#8217;{}&#8217;</strong>.  They&#8217;re a way of performing an action on a value returned by a method.
+<figure class='code'><figcaption><span>Define and call a method that yields to a block</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">my_method</span>
+</span><span class='line'>  <span class="k">yield</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">my_method</span> <span class="p">{</span><span class="s2">&quot;This is a block!&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s2">&quot;This is a block!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+The example above returns <strong>&#8220;This is a block!&#8221;</strong>.  The method <strong>&#8216;my_method&#8217;</strong> yields to the block, which then executes it&#8217;s code.</p>
+
+
+<p><em>(It actually returns &#8216;nil&#8217; because of the puts statement, but we&#8217;re going to ignore that in this and future examples)</em></p>
+
+<h2>Procs</h2>
+
+
+<p>A Proc is just a block that is stored in a variable for repeated use.  If we store a proc in a variable, we can pass that variable to any method that expects a proc.
+<figure class='code'><figcaption><span>Store a block in a variable as a Proc </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">proc_method</span><span class="p">(</span><span class="n">a_proc</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">a_proc</span><span class="o">.</span><span class="n">call</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">my_proc</span> <span class="o">=</span> <span class="no">Proc</span><span class="o">.</span><span class="n">new</span><span class="p">{</span><span class="s2">&quot;This is a proc!&quot;</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">proc_method</span><span class="p">(</span><span class="n">my_proc</span><span class="p">)</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s2">&quot;This is a proc!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+If we want to reuse the block of code stored in the <strong>my_proc</strong> variable, we can simply define another method that takes a proc and pass in <strong>my_proc</strong>.</br></br>
+<figure class='code'><figcaption><span>Pass the same proc to another method</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">another_proc_method</span><span class="p">(</span><span class="n">a_proc</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">a_proc</span><span class="o">.</span><span class="n">call</span> <span class="o">+</span> <span class="s2">&quot; - reused!&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">another_proc_method</span><span class="p">(</span><span class="n">my_proc</span><span class="p">)</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s2">&quot;This is a proc! -  reused!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+</p>
+
+
+<h2>Lambdas</h2>
+
+
+<p>
+Lambdas are very similar to procs, only with a slightly different syntax.
+<figure class='code'><figcaption><span>Store a block in a variable as a Lambda</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">lambda_method</span><span class="p">(</span><span class="n">a_lambda</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">a_lambda</span><span class="o">.</span><span class="n">call</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">my_lambda</span> <span class="o">=</span> <span class="nb">lambda</span> <span class="p">{</span><span class="s2">&quot;This is a lambda!&quot;</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">lambda_method</span><span class="p">(</span><span class="n">my_lambda</span><span class="p">)</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s2">&quot;This is a lambda!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+So, lambdas are like procs.  In fact, if we run <strong>my_lambda.class</strong>, we&#8217;ll see that it returns <strong>&#8216;Proc&#8217;</strong> - that&#8217;s right, lambdas are instances of the <strong>Proc</strong> class.  Now pick your jaw up off the floor and let&#8217;s go over the differences between the two.
+</p>
+
+
+<h2>Procs vs. Lambdas</h2>
+
+
+<p>Procs and lambdas behave in slightly different ways with regards to <strong>a) argument handling</strong> and <strong>b) return context</strong>.  Lambdas, sticklers that they are, are very particular with arguments, and will raise an error if passed less or more arguments than were set when they were defined.  Procs, on the other hand, couldn&#8217;t give two bits how many arguments you pass them - a proc will set all unused arguments to nil.
+<figure class='code'><figcaption><span>Parameter handling with procs and lambdas</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">parameter_handling</span><span class="p">(</span><span class="n">proc_or_lambda</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">proc_or_lambda</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">my_proc</span> <span class="o">=</span> <span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="o">|</span> <span class="s2">&quot;Procs aren&#39;t sticklers about args...&quot;</span><span class="p">}</span>
+</span><span class='line'><span class="n">my_lambda</span> <span class="o">=</span> <span class="nb">lambda</span> <span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="o">|</span> <span class="s2">&quot;...but Lambdas are!&quot;</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">parameter_handling</span><span class="p">(</span><span class="n">my_proc</span><span class="p">)</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s2">&quot;Procs aren&#39;t sticklers about args...&quot;</span>
+</span><span class='line'><span class="n">parameter_handling</span><span class="p">(</span><span class="n">my_lambda</span><span class="p">)</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="o">&lt;</span><span class="no">ArgumentError</span><span class="p">:</span> <span class="n">wrong</span> <span class="n">number</span> <span class="n">of</span> <span class="n">arguments</span> <span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="mi">2</span><span class="p">)</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+So, if you want your reusable block to <strong>require specific</strong> amount of arguments, you should use a lambda instead of a proc.</p>
+
+
+<p>The other way procs and lambdas differ is in <strong>return context</strong>.  When a proc encounters a return statement, it will execute the proc and exit the wrapping method.  On the other hand, lambdas, ever the anal retentive counterpart to the freewheeling proc, will execute the lambda and then politely continue to run the wrapping method.  Let&#8217;s take a look at an example.
+<figure class='code'><figcaption><span>Return context with procs and lambdas</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">return_test</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;beginning&quot;</span>
+</span><span class='line'>  <span class="no">Proc</span><span class="o">.</span><span class="n">new</span><span class="p">{</span><span class="k">return</span> <span class="nb">puts</span> <span class="s2">&quot;middle&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">call</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;end&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">return_test</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s2">&quot;beginning&quot;</span>
+</span><span class='line'>   <span class="s2">&quot;middle&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">return_test</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;beginning&quot;</span>
+</span><span class='line'>  <span class="nb">lambda</span> <span class="p">{</span><span class="k">return</span> <span class="nb">puts</span> <span class="s2">&quot;middle&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">call</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;end&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">return_test</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s2">&quot;beginning&quot;</span>
+</span><span class='line'>   <span class="s2">&quot;middle&quot;</span>
+</span><span class='line'>   <span class="s2">&quot;end&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+As you can see, when returning our proc, we exited the wrapping method (hence the absence of an &#8220;end&#8221;), while in returning our lambda, we executed the lambda code and then continued executing the wrapping method call.</p>
+
+
+<h2>Conclusion</h2>
+
+
+<p>
+So procs and lambdas are really just two ways of storing blocks in variables for repeated use.  Admittedly, our examples were pretty elementary, but blocks, procs and lambdas can be actually be incredibly powerful.  When passed to a method call, they can act on dynamically generated variables (!), making them all &#8216;Closures&#8217;, which is a topic way outside the scope of this post.  For now, just think of procs and lambdas as the the odd couple spawn of the all mighty block.
+</p>
+
+
+<p><em>(Note: This post was inspired by a <a href="https://speakerdeck.com/u/episko/p/blocks-procs-and-lambdas" target="_blank">short and very informative</a> presentation on the subject available on speakerdeck. Highly recommended for a more in depth look at use cases of procs and lambdas.  Many thanks to the author ; )</em></p>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -149,6 +360,10 @@ This is your PATH environment variable.  It&#8217;s a list of directories that B
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown/">Blocks vs. Procs vs. Lambdas: Ruby Closure Showdown</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/10/08/bash-and-the-one-true-path/">BASH and The One True Path</a>

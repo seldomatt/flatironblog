@@ -1,24 +1,96 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[SeldomBlog]]></title>
-  <link href="http://blog.seldomatt.com/atom.xml" rel="self"/>
-  <link href="http://blog.seldomatt.com/"/>
-  <updated>2012-10-14T22:33:28-04:00</updated>
-  <id>http://blog.seldomatt.com/</id>
-  <author>
-    <name><![CDATA[seldomatt]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Blocks vs. Procs vs. Lambdas: Ruby Closure Showdown - SeldomBlog</title>
+  <meta name="author" content="seldomatt">
 
   
-  <entry>
-    <title type="html"><![CDATA[Blocks vs. Procs vs. Lambdas: Ruby Closure Showdown]]></title>
-    <link href="http://blog.seldomatt.com/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown/"/>
-    <updated>2012-10-14T21:19:00-04:00</updated>
-    <id>http://blog.seldomatt.com/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown</id>
-    <content type="html"><![CDATA[<p>Early on in your quest to learn Ruby, you&#8217;re going to encounter <strong>&#8216;blocks&#8217;</strong>.  These little packets of code that can be passed to methods may make you sweat a little at first, but soon enough, passing blocks to Enumerable instance methods like &#8216;each&#8217; and &#8216;map&#8217; will be second nature.  Then, one day, you&#8217;ll encounter (gulp), a <strong>&#8216;proc&#8217;</strong>, or (bigger gulp), a <strong>&#8216;lambda&#8217;</strong>, and you&#8217;ll question why you ever got into this coding business in the first place.  Luckily, you can cast those doubts aside, because despite the intimidating names, procs and lambdas are really just blocks stored as variables.  Let&#8217;s take a minute to break this love triangle apart and examine the subtle differences between blocks, procs and lambdas.</p>
+  <meta name="description" content="Early on in your quest to learn Ruby, you&#8217;re going to encounter &#8216;blocks&#8217;. These little packets of code that can be passed to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.seldomatt.com/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="SeldomBlog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">SeldomBlog</a></h1>
+  
+    <h2>Artist. Musician. Programmer-to-be.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.seldomatt.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Blocks vs. Procs vs. Lambdas: Ruby Closure Showdown</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-14T21:19:00-04:00" pubdate data-updated="true">Oct 14<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Early on in your quest to learn Ruby, you&#8217;re going to encounter <strong>&#8216;blocks&#8217;</strong>.  These little packets of code that can be passed to methods may make you sweat a little at first, but soon enough, passing blocks to Enumerable instance methods like &#8216;each&#8217; and &#8216;map&#8217; will be second nature.  Then, one day, you&#8217;ll encounter (gulp), a <strong>&#8216;proc&#8217;</strong>, or (bigger gulp), a <strong>&#8216;lambda&#8217;</strong>, and you&#8217;ll question why you ever got into this coding business in the first place.  Luckily, you can cast those doubts aside, because despite the intimidating names, procs and lambdas are really just blocks stored as variables.  Let&#8217;s take a minute to break this love triangle apart and examine the subtle differences between blocks, procs and lambdas.</p>
 
 
 <h2>Blocks</h2>
@@ -194,53 +266,154 @@ So procs and lambdas are really just two ways of storing blocks in variables for
 
 
 
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[BASH and The One True Path]]></title>
-    <link href="http://blog.seldomatt.com/blog/2012/10/08/bash-and-the-one-true-path/"/>
-    <updated>2012-10-08T14:04:00-04:00</updated>
-    <id>http://blog.seldomatt.com/blog/2012/10/08/bash-and-the-one-true-path</id>
-    <content type="html"><![CDATA[<p>As a nuby programmer, you&#8217;re going to be cozying up to your command line in ways you never before imagined.  You&#8217;ll be cd&#8217;ing, ls&#8217;ing, grep&#8217;ing, and (carefully) rm -rf&#8217;ing your way around your filesystem, and, for Linux and OSX users like me, you&#8217;ll be using BASH to do it.  BASH is a command processing program that reads the input you type into your command line and does things with it.  You can read more about it <a href="http://en.wikipedia.org/wiki/Bash_(Unix_shell)" target="_blank">here</a>, and <a href="http://www.linuxfromscratch.org/blfs/view/svn/postlfs/profile.html" target="_blank">here</a>, but the real topic of this post is the special little beast known as the <strong>PATH</strong>, so let&#8217;s get to it.</p>
 
+<span class="byline author vcard">Posted by <span class="fn">seldomatt</span></span>
 
-<p><img src="../images/pathpostimg.jpg" title="'hiker on the path'" ></p>
-
-<p>When BASH starts, it creates an environment for your shell session by executing commands from a few different scripts.  These include ~/.bash_profile, ~/.bash_login, and ~/.bash_rc.  Since BASH looks in your .bash_profile first, you should be setting most of your environment variables and methods there (though read up on .bash_login/.bash_rc, because they&#8217;ll be invoked under certain conditions and, reading is good for you).  Let&#8217;s take a look in our bash_profile (I&#8217;m using SublimeText, hence the &#8216;subl&#8217; command, but use whatever editor you&#8217;ve got):</br>
-</br>
-<strong>$ cd ~</strong></br>
-<strong>$ subl .bash_profile</strong></br>
-</br>
-What you&#8217;ll likely see (among other things we&#8217;re going to ignore in this post) is a line that reads PATH = $PATH.  Those of you quicker than myself will instantly recognize that this is setting the variable named PATH.  You can call that variable with $PATH (this is the syntax BASH uses, like var in Javascript).  Jump back into your command line and type in $PATH.  What you&#8217;ll see printed to the screen is something like this:</br>
-</br>
-<strong>$ $PATH</strong></br>
-<strong>-bash: /bin:/usr/local/bin:/usr/bin:/Users/Username/bin:</strong></br>
-</br>
-This is your PATH environment variable.  It&#8217;s a list of directories that BASH will look in for commands, scripts, and programs.  The filepaths to those directories are separated by &#8216;:&#8217;, and the directories are checked in order.  So, when you type &#8216;git&#8217; to access the git revision control program from your command line, BASH will first check your ~/bin directory, then your ~/usr/local/bin directory, then ~/usr/bin, and so on.  As soon as BASH finds what it&#8217;s looking for (in this case, &#8216;git&#8217;), it&#8217;ll execute the command and stop travelling down the PATH.  The PATH environment variable is like a map that BASH consults every time you tell it do something.  The map says &#8216;Go here first, and if you don&#8217;t find what you&#8217;re looking for, go here, or else go here, etc., etc&#8230;&#8217;</p>
-
-
-<p></p>
-
-<p>Seems simple enough, and it is, but there are a few things to keep in mind.</p>
+      
 
 
 
 
-<p>BASH, like all programs, is pretty dumb - it only knows what you teach it.  So if you want to execute a script or program from your command line, you&#8217;re going to need to make sure it&#8217;s in your $PATH, or else BASH won&#8217;t know where to look.  I recently ran into an issue when trying to run Postgres.app from the command line.  The documentation told me to add the /Applications/Postgres.app/Contents/MacOS/bin directory to my PATH, so I did.  I was then supposed to be able to run &#8216;psql&#8217; from the command line to startup Postgres, but it didn&#8217;t work.  In what I would like to tell you was a very short amount of time spent running the same command and pulling my hair out, I realized that Postgres.app was still in my /Downloads directory, not in /Applications. But the directory I&#8217;d added to my PATH was supposed to be in /Applications, not /Downloads, and as mentioned, BASH will only check the directories in your PATH, and nowhere else.  So I moved Postgres from my /Downloads dir to /Applications, and voila - everything worked, my blood pressure came down, and I learned a little bit about how the PATH works.</p>
 
 
 
 
-<p>It&#8217;s also important to remember that BASH will stop looking for a program or script once it finds a match, so the sequence of directories in your PATH is important.  If you have two different versions of a program saved in different places, (say, one version in /usr/bin, and one version in usr/local/bin), BASH will use the version located in the directory that appears first in your PATH.  So if you think you&#8217;ve got a more recent version of a program installed, but for some reason BASH keeps loading the older version, check your PATH against the locations of your programs/scripts.  You can add a directory to the front of your path by opening your bash_profile and adjusting your PATH = line like so:</br></br>
-<strong>PATH = &#8220;path/to/new/dir:$PATH&#8221;</strong></p>
-
-
-
-
-<p>And that&#8217;s the PATH.  An environment variable that provides BASH with instructions on where to look for things.  If you&#8217;re ever running into an issue with BASH not recognizing a command or program, check your PATH first; it may be as easy as telling BASH where to look.  Now, go forth and wander.</p>
-
-]]></content>
-  </entry>
   
-</feed>
+
+
+<time datetime="2012-10-14T21:19:00-04:00" pubdate data-updated="true">Oct 14<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.seldomatt.com/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown/" data-via="seldomatt" data-counturl="http://blog.seldomatt.com/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/10/08/bash-and-the-one-true-path/" title="Previous Post: BASH and The One True Path">&laquo; BASH and The One True Path</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown/">Blocks vs. Procs vs. Lambdas: Ruby Closure Showdown</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/08/bash-and-the-one-true-path/">BASH and The One True Path</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/seldomatt">@seldomatt</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'seldomatt',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("seldomatt", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/seldomatt" class="twitter-follow-button" data-show-count="false">Follow @seldomatt</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - seldomatt -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

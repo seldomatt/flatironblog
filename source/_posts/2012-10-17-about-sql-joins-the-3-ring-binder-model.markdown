@@ -12,7 +12,7 @@ Any programmer worth their weight in bitcoins is going to need to know a bit abo
 
 Picture the two tables in your database as two pieces of looseleaf.  The blue lines represent our rows, or records.  The dashed lines represent our columns.
 
-{% img center /images/3ringbinder1.jpg 'database tables' %}
+{% img center /images/3ringbinder8.jpg 'database tables' %}
 
 Now, using the SQL syntax for sqlite3, we'll start writing our join by stipulating which tables we'd like to link.
 

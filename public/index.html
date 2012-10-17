@@ -97,7 +97,7 @@
 
 <h2>3 RING BINDER</h2>
 
-<p>Picture the two tables in your database as two pieces of looseleaf.  The blue lines represent our rows, or records.  The dashed lines represent our columns.</p>
+<p>Picture the two tables in our database as two pieces of looseleaf.  The blue lines represent our rows, or records.  The dashed lines represent our columns.</p>
 
 <p><img class="center" src="/images/3ringbinder8.jpg" title="'database tables'" ></p>
 
@@ -110,7 +110,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>We&#8217;ll go over INNERJOIN in a second, but for now just picture us putting our two pieces of looseleaf into a three ring binder. We&#8217;re selecting from both persons <em>(left table)</em> and orders <em>(right table)</em>, and linking them with a join.</p>
+<p>We&#8217;ll go over <strong>INNER JOIN</strong> in a second, but for now just picture us putting our two pieces of looseleaf into a three ring binder. We&#8217;re selecting from both persons <em>(left table)</em> and orders <em>(right table)</em>, and linking them with a join.</p>
 
 <p><img class="center" src="/images/3ringbinder2.jpg" title="'joined tables'" ></p>
 
@@ -125,7 +125,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Here, we&#8217;re saying that we should link the rows in persons and orders based on the value of the <strong>&#8216;id&#8217;</strong> column in the person table, and the <strong>&#8216;pid&#8217;</strong> column in our orders table.  When the values in those two columns match, we can assume a correlation between the two records.</p>
+<p>Here, we&#8217;re saying that we should link the rows in persons and orders based on the value of the <strong>&#8216;id&#8217;</strong> column in the person table, and the <strong>&#8216;pid&#8217;</strong> column in the orders table.  When the values in those two columns match, we can assume a correlation between the two records.</p>
 
 <p><img class="center" src="/images/3ringbinder3.jpg" title="'join column'" ></p>
 
@@ -133,7 +133,7 @@
 
 <h2>Inner Join:</h2>
 
-<p>An inner join, or left inner join, will produce only the records for which there is a match from tablea <em>(persons)</em> and tableb <em>(orders)</em> (records produced are highlighted):</p>
+<p>An inner join, or left inner join, will produce only the records for which there is a match from tablea <em>(persons)</em> and tableb <em>(orders)</em> <strong>(records produced are highlighted)</strong>:</p>
 
 <p><img class="center" src="/images/3ringbinder4.jpg" title="'join column'" ></p>
 

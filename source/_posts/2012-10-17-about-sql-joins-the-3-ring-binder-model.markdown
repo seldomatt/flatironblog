@@ -10,7 +10,7 @@ Any programmer worth their weight in bitcoins is going to need to know a bit abo
 
 ## 3 RING BINDER
 
-Picture the two tables in your database as two pieces of looseleaf.  The blue lines represent our rows, or records.  The dashed lines represent our columns.
+Picture the two tables in our database as two pieces of looseleaf.  The blue lines represent our rows, or records.  The dashed lines represent our columns.
 
 {% img center /images/3ringbinder8.jpg 'database tables' %}
 
@@ -21,7 +21,7 @@ SELECT * FROM persons
 INNER JOIN orders
 ```
 
-We'll go over INNERJOIN in a second, but for now just picture us putting our two pieces of looseleaf into a three ring binder. We're selecting from both persons *(left table)* and orders *(right table)*, and linking them with a join.
+We'll go over **INNER JOIN** in a second, but for now just picture us putting our two pieces of looseleaf into a three ring binder. We're selecting from both persons *(left table)* and orders *(right table)*, and linking them with a join.
 
 {% img center /images/3ringbinder2.jpg 'joined tables' %}
 
@@ -33,7 +33,7 @@ INNER JOIN orders
 ON persons.id = orders.pid
 ```
 
-Here, we're saying that we should link the rows in persons and orders based on the value of the **'id'** column in the person table, and the **'pid'** column in our orders table.  When the values in those two columns match, we can assume a correlation between the two records.
+Here, we're saying that we should link the rows in persons and orders based on the value of the **'id'** column in the person table, and the **'pid'** column in the orders table.  When the values in those two columns match, we can assume a correlation between the two records.
 
 {% img center /images/3ringbinder3.jpg 'join column' %}
 
@@ -41,7 +41,7 @@ Now we've joined our tables.  But there are a few different ways to join two tab
 
 ## Inner Join:
 
-An inner join, or left inner join, will produce only the records for which there is a match from tablea *(persons)* and tableb *(orders)* (records produced are highlighted):
+An inner join, or left inner join, will produce only the records for which there is a match from tablea *(persons)* and tableb *(orders)* **(records produced are highlighted)**:
 
 {% img center /images/3ringbinder4.jpg 'join column' %}
 

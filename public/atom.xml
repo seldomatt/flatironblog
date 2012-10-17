@@ -4,7 +4,7 @@
   <title><![CDATA[SeldomBlog]]></title>
   <link href="http://blog.seldomatt.com/atom.xml" rel="self"/>
   <link href="http://blog.seldomatt.com/"/>
-  <updated>2012-10-17T12:23:07-04:00</updated>
+  <updated>2012-10-17T12:28:15-04:00</updated>
   <id>http://blog.seldomatt.com/</id>
   <author>
     <name><![CDATA[seldomatt]]></name>
@@ -24,7 +24,7 @@
 
 <p>Picture the two tables in your database as two pieces of looseleaf.  The blue lines represent our rows, or records.  The dashed lines represent our columns.</p>
 
-<p>{% image  %}</p>
+<p><img class="center" src="http://blog.seldomatt.com/images/3ringbinder1.jpg" title="'database tables'" ></p>
 
 <p>Now, using the SQL syntax for sqlite3, we&#8217;ll start writing our join by stipulating which tables we&#8217;d like to link.</p>
 
@@ -37,7 +37,7 @@
 
 <p>We&#8217;ll go over INNERJOIN in a second, but for now just picture us putting our two pieces of looseleaf into a three ring binder. We&#8217;re selecting from both persons <em>(left table)</em> and orders <em>(right table)</em>, and linking them with a join.</p>
 
-<p>{% image %}</p>
+<p><img class="center" src="http://blog.seldomatt.com/images/3ringbinder2.jpg" title="'joined tables'" ></p>
 
 <p>Now that our pages (tables) are in a binder (joined), we need to stipulate which column to link them on.</p>
 
@@ -52,33 +52,23 @@
 
 <p>Here, we&#8217;re saying that we should link the rows in persons and orders based on the value of the <strong>&#8216;id&#8217;</strong> column in the person table, and the <strong>&#8216;pid&#8217;</strong> column in our orders table.  When the values in those two columns match, we can assume a correlation between the two records.</p>
 
-<p>{% image %}</p>
-
 <p>Now we&#8217;ve joined our tables.  But there are a few different ways to join two tables, which will effect which rows are returned.  Let&#8217;s have a look:</p>
 
 <h2>Inner Join:</h2>
 
 <p>An inner join, or left inner join, will produce only the records for which there is a match from tablea <em>(persons)</em> and tableb <em>(orders)</em> (records produced are highlighted):</p>
 
-<p>{% image % }</p>
-
 <h2>Left Outer Join:</h2>
 
 <p>A left outer join will produce a complete set of records for tablea <em>(persons)</em>, with matching records from tableb <em>(orders)</em> <strong>when they exist</strong>.  If there&#8217;s no match from tableb, the right table&#8217;s join column value will be &#8216;null&#8217;.</p>
-
-<p>{% image %}</p>
 
 <h2>Right Outer Join:</h2>
 
 <p>A right outer join will produce a complete set of records for tableb <em>(orders)</em>, with matching records from tablea <em>(persons)</em> when they exist.  If there&#8217;s no match from tablea, the left table&#8217;s join column value will be &#8216;null&#8217;.</p>
 
-<p>{% image %}</p>
-
 <h2>Full Outer Join:</h2>
 
 <p>A full outer join will produce <strong>the complete set of records from both tables</strong>.  Wherever there is no match, the value will be &#8216;null&#8217;.</p>
-
-<p>{% image %}</p>
 
 <h2>Conclusion:</h2>
 

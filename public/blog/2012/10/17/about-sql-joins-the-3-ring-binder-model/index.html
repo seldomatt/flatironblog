@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>About SQL Joins: the 3 Ring Binder Model - SeldomBlog</title>
+  <meta name="author" content="seldomatt">
+
+  
+  <meta name="description" content="Any programmer worth their weight in bitcoins is going to need to know a bit about databases. If you&#8217;re not familiar with databases, you should &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.seldomatt.com/blog/2012/10/17/about-sql-joins-the-3-ring-binder-model/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="SeldomBlog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">SeldomBlog</a></h1>
+  
+    <h2>Artist. Musician. Programmer-to-be.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.seldomatt.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">About SQL Joins: The 3 Ring Binder Model</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-17T11:42:00-04:00" pubdate data-updated="true">Oct 17<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Any programmer worth their weight in bitcoins is going to need to know a bit about databases.  If you&#8217;re not familiar with databases, you should take some time to read up on them, but hurry back, because for this post we&#8217;re going to be talking about the different kinds of <strong>JOINS</strong>.  &#8216;Joins&#8217; are a method of linking multiple tables in a database together so we can access values from them with a single query.  The three main parts of a join are:</br>
+1. Tables - which tables are you linking?
+2. Join Column - in order to link two tables, we need to create a correlation between them.  For instance, we may stipulate that the values in the &#8216;id&#8217; column in table &#8216;persons&#8217; correspond to the values in the &#8216;pid&#8217; column in table &#8216;orders&#8217;.  In such a way, we can return all values from both tables for which &#8216;id&#8217; and &#8216;pid&#8217; are equal.
+3. Type of Join - there are different ways to structure how our joined tables respond to queries.  There are <strong>LEFT INNER JOINS</strong>, <strong>RIGHT OUTER JOINS</strong>, <strong>LEFT OUTER JOINS</strong>, and <strong>FULL OUTER JOINS</strong>, each of which produce slightly different results.</p>
+
+<p>Got it?  No?  Since tables in a database aren&#8217;t tangible things, it can get a bit tricky to visualize the links we create between them.  I for one find it difficult to really wrap my head around a concept until I can draw it, which made for some interesting moments in high school sex ed, but also led me to develop a method for visualizing the different kinds of joins!  Let&#8217;s have a look:</p>
+
+<h2>3 RING BINDER</h2>
+
+<p>Picture the two tables in your database as two pieces of looseleaf.  The blue lines represent our rows, or records.  The dashed lines represent our columns.</p>
+
+<p>{% image  %}</p>
+
+<p>Now, using the SQL syntax for sqlite3, we&#8217;ll start writing our join by stipulating which tables we&#8217;d like to link.</p>
+
+<figure class='code'><figcaption><span>Writing a SELECT query using JOINS</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">persons</span>
+</span><span class='line'><span class="n">INNERJOIN</span> <span class="n">orders</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We&#8217;ll go over INNERJOIN in a second, but for now just picture us putting our two pieces of looseleaf into a three ring binder. We&#8217;re selecting from both persons <em>(left table)</em> and orders <em>(right table)</em>, and linking them with a join.</p>
+
+<p>{% image %}</p>
+
+<p>Now that our pages (tables) are in a binder (joined), we need to stipulate which column to link them on.</p>
+
+<figure class='code'><figcaption><span>Setting a join column</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">tablea</span>
+</span><span class='line'><span class="n">INNERJOIN</span> <span class="n">tableb</span>
+</span><span class='line'><span class="k">ON</span> <span class="n">persons</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">orders</span><span class="p">.</span><span class="n">pid</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here, we&#8217;re saying that we should link the rows in persons and orders based on the value of the <strong>&#8216;id&#8217;</strong> column in the person table, and the <strong>&#8216;pid&#8217;</strong> column in our orders table.  When the values in those two columns match, we can assume a correlation between the two records.</p>
+
+<p>{% image %}</p>
+
+<p>Now we&#8217;ve joined our tables.  But there are a few different ways to join two tables, which will effect which rows are returned.  Let&#8217;s have a look:</p>
+
+<h2>Inner Join:</h2>
+
+<p>An inner join, or left inner join, will produce only the records for which there is a match from tablea <em>(persons)</em> and tableb <em>(orders)</em> (records produced are highlighted):</p>
+
+<p>{% image % }</p>
+
+<h2>Left Outer Join:</h2>
+
+<p>A left outer join will produce a complete set of records for tablea <em>(persons)</em>, with matching records from tableb <em>(orders)</em> <strong>when they exist</strong>.  If there&#8217;s no match from tableb, the right table&#8217;s join column value will be &#8216;null&#8217;.</p>
+
+<p>{% image %}</p>
+
+<h2>Right Outer Join:</h2>
+
+<p>A right outer join will produce a complete set of records for tableb <em>(orders)</em>, with matching records from tablea <em>(persons)</em> when they exist.  If there&#8217;s no match from tablea, the left table&#8217;s join column value will be &#8216;null&#8217;.</p>
+
+<p>{% image %}</p>
+
+<h2>Full Outer Join:</h2>
+
+<p>A full outer join will produce <strong>the complete set of records from both tables</strong>.  Wherever there is no match, the value will be &#8216;null&#8217;.</p>
+
+<p>{% image %}</p>
+
+<h2>Conclusion:</h2>
+
+<p>Hopefully this visualization will help you wrap your head around database table joins, (and maybe conjure fond memories of decorating your Five Star™ binders&#8230;).  For more on databases and visualizations for joins, you can go <a href="http://www.databasejournal.com/features/mysql/article.php/2248101/Referential-Integrity-in-MySQL.htm" title="Referential Integrity">here</a>, or <a href="http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html">here</a> for some great insights.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">seldomatt</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-17T11:42:00-04:00" pubdate data-updated="true">Oct 17<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.seldomatt.com/blog/2012/10/17/about-sql-joins-the-3-ring-binder-model/" data-via="seldomatt" data-counturl="http://blog.seldomatt.com/blog/2012/10/17/about-sql-joins-the-3-ring-binder-model/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown/" title="Previous Post: Blocks vs. Procs vs. Lambdas: Ruby Closure Showdown">&laquo; Blocks vs. Procs vs. Lambdas: Ruby Closure Showdown</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/17/about-sql-joins-the-3-ring-binder-model/">About SQL Joins: the 3 Ring Binder Model</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown/">Blocks vs. Procs vs. Lambdas: Ruby Closure Showdown</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/08/bash-and-the-one-true-path/">BASH and The One True Path</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/seldomatt">@seldomatt</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'seldomatt',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("seldomatt", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/seldomatt" class="twitter-follow-button" data-show-count="false">Follow @seldomatt</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - seldomatt -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

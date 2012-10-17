@@ -6,12 +6,7 @@ comments: true
 categories: 
 ---
 
-Any programmer worth their weight in bitcoins is going to need to know a bit about databases.  If you're not familiar with databases, you should take some time to read up on them, but hurry back, because for this post we're going to be talking about the different kinds of **JOINS**.  'Joins' are a method of linking multiple tables in a database together so we can access values from them with a single query.  The three main parts of a join are:</br>
-1. Tables - which tables are you linking?
-2. Join Column - in order to link two tables, we need to create a correlation between them.  For instance, we may stipulate that the values in the 'id' column in table 'persons' correspond to the values in the 'pid' column in table 'orders'.  In such a way, we can return all values from both tables for which 'id' and 'pid' are equal. 
-3. Type of Join - there are different ways to structure how our joined tables respond to queries.  There are **LEFT INNER JOINS**, **RIGHT OUTER JOINS**, **LEFT OUTER JOINS**, and **FULL OUTER JOINS**, each of which produce slightly different results.  
-
-Got it?  No?  Since tables in a database aren't tangible things, it can get a bit tricky to visualize the links we create between them.  I for one find it difficult to really wrap my head around a concept until I can draw it, which made for some interesting moments in high school sex ed, but also led me to develop a method for visualizing the different kinds of joins!  Let's have a look:
+Any programmer worth their weight in bitcoins is going to need to know a bit about databases.  If you're not familiar with databases, you should take some time to read up on them, but hurry back, because for this post we're going to be talking about the different kinds of **JOINS**.  'Joins' are a method of linking multiple tables in a database together so we can access values from them with a single query.  Seems simple enough, but joins can be confusing.  Since tables in a database aren't tangible things, it can be difficult to visualize the links we create between them.  I for one find it difficult to really wrap my head around a concept until I can draw it, which made for some interesting moments in high school sex ed, but also led me to develop a method for visualizing the how the different kinds of joins work! Let's have a look:
 
 ## 3 RING BINDER
 

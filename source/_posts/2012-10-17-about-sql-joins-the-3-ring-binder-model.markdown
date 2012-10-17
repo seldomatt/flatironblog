@@ -6,7 +6,7 @@ comments: true
 categories: 
 ---
 
-Any programmer worth their weight in bitcoins is going to need to know a bit about databases.  If you're not familiar with databases, you should take some time to read up on them, but hurry back, because for this post we're going to be talking about the different kinds of **JOINS**.  'Joins' are a method of linking multiple tables in a database together so we can access values from them with a single query.  Seems simple enough, but joins can be confusing.  Since tables in a database aren't tangible things, it can be difficult to visualize the links we create between them.  I for one find it difficult to really wrap my head around a concept until I can draw it, which made for some interesting moments in high school sex ed, but also led me to develop a method for visualizing the how the different kinds of joins work! Let's have a look:
+Any programmer worth their weight in bitcoins is going to need to know a bit about databases.  If you're not familiar with databases, you should take some time to read up on them, but hurry back, because for this post we're going to be talking about the different kinds of **JOINS**.  'Joins' are a method of linking multiple tables in a database together so we can access values from them with a single query.  Seems simple enough, but joins can be confusing.  Since tables in a database aren't tangible things, it can be difficult to understand the links we create between them.  I for one find it difficult to really wrap my head around a concept until I can draw it, which made for some interesting moments in high school sex ed, but also led me to develop a method for visualizing how the different kinds of joins work!  Let's have a look:
 
 ## 3 RING BINDER
 
@@ -18,7 +18,7 @@ Now, using the SQL syntax for sqlite3, we'll start writing our join by stipulati
 
 ``` sql Writing a SELECT query using JOINS
 SELECT * FROM persons
-INNERJOIN orders
+INNER JOIN orders
 ```
 
 We'll go over INNERJOIN in a second, but for now just picture us putting our two pieces of looseleaf into a three ring binder. We're selecting from both persons *(left table)* and orders *(right table)*, and linking them with a join.
@@ -29,7 +29,7 @@ Now that our pages (tables) are in a binder (joined), we need to stipulate which
 
 ``` sql Setting a join column
 SELECT * FROM persons
-INNERJOIN orders
+INNER JOIN orders
 ON persons.id = orders.pid
 ```
 
@@ -49,19 +49,19 @@ An inner join, or left inner join, will produce only the records for which there
 
 A left outer join will produce a complete set of records for tablea *(persons)*, with matching records from tableb *(orders)* **when they exist**.  If there's no match from tableb, the right table's join column value will be 'null'.
 
-
+{% img center /images/3ringbinder5.jpg 'join column' %}
 
 ## Right Outer Join:
 
 A right outer join will produce a complete set of records for tableb *(orders)*, with matching records from tablea *(persons)* when they exist.  If there's no match from tablea, the left table's join column value will be 'null'.
 
-
+{% img center /images/3ringbinder6.jpg 'join column' %}
 
 ## Full Outer Join:
 
 A full outer join will produce **the complete set of records from both tables**.  Wherever there is no match, the value will be 'null'.
 
-
+{% img center /images/3ringbinder7.jpg 'join column' %}
 
 ## Conclusion:
 

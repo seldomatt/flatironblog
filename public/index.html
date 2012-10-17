@@ -93,7 +93,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Any programmer worth their weight in bitcoins is going to need to know a bit about databases.  If you&#8217;re not familiar with databases, you should take some time to read up on them, but hurry back, because for this post we&#8217;re going to be talking about the different kinds of <strong>JOINS</strong>.  &#8216;Joins&#8217; are a method of linking multiple tables in a database together so we can access values from them with a single query.  Seems simple enough, but joins can be confusing.  Since tables in a database aren&#8217;t tangible things, it can be difficult to visualize the links we create between them.  I for one find it difficult to really wrap my head around a concept until I can draw it, which made for some interesting moments in high school sex ed, but also led me to develop a method for visualizing the how the different kinds of joins work! Let&#8217;s have a look:</p>
+  <div class="entry-content"><p>Any programmer worth their weight in bitcoins is going to need to know a bit about databases.  If you&#8217;re not familiar with databases, you should take some time to read up on them, but hurry back, because for this post we&#8217;re going to be talking about the different kinds of <strong>JOINS</strong>.  &#8216;Joins&#8217; are a method of linking multiple tables in a database together so we can access values from them with a single query.  Seems simple enough, but joins can be confusing.  Since tables in a database aren&#8217;t tangible things, it can be difficult to understand the links we create between them.  I for one find it difficult to really wrap my head around a concept until I can draw it, which made for some interesting moments in high school sex ed, but also led me to develop a method for visualizing how the different kinds of joins work!  Let&#8217;s have a look:</p>
 
 <h2>3 RING BINDER</h2>
 
@@ -106,7 +106,7 @@
 <figure class='code'><figcaption><span>Writing a SELECT query using JOINS</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">persons</span>
-</span><span class='line'><span class="n">INNERJOIN</span> <span class="n">orders</span>
+</span><span class='line'><span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">orders</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -119,13 +119,15 @@
 <figure class='code'><figcaption><span>Setting a join column</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">tablea</span>
-</span><span class='line'><span class="n">INNERJOIN</span> <span class="n">tableb</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">persons</span>
+</span><span class='line'><span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">orders</span>
 </span><span class='line'><span class="k">ON</span> <span class="n">persons</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">orders</span><span class="p">.</span><span class="n">pid</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>Here, we&#8217;re saying that we should link the rows in persons and orders based on the value of the <strong>&#8216;id&#8217;</strong> column in the person table, and the <strong>&#8216;pid&#8217;</strong> column in our orders table.  When the values in those two columns match, we can assume a correlation between the two records.</p>
+
+<p><img class="center" src="/images/3ringbinder3.jpg" title="'join column'" ></p>
 
 <p>Now we&#8217;ve joined our tables.  But there are a few different ways to join two tables, which will effect which rows are returned.  Let&#8217;s have a look:</p>
 
@@ -133,17 +135,25 @@
 
 <p>An inner join, or left inner join, will produce only the records for which there is a match from tablea <em>(persons)</em> and tableb <em>(orders)</em> (records produced are highlighted):</p>
 
+<p><img class="center" src="/images/3ringbinder4.jpg" title="'join column'" ></p>
+
 <h2>Left Outer Join:</h2>
 
 <p>A left outer join will produce a complete set of records for tablea <em>(persons)</em>, with matching records from tableb <em>(orders)</em> <strong>when they exist</strong>.  If there&#8217;s no match from tableb, the right table&#8217;s join column value will be &#8216;null&#8217;.</p>
+
+<p><img class="center" src="/images/3ringbinder5.jpg" title="'join column'" ></p>
 
 <h2>Right Outer Join:</h2>
 
 <p>A right outer join will produce a complete set of records for tableb <em>(orders)</em>, with matching records from tablea <em>(persons)</em> when they exist.  If there&#8217;s no match from tablea, the left table&#8217;s join column value will be &#8216;null&#8217;.</p>
 
+<p><img class="center" src="/images/3ringbinder6.jpg" title="'join column'" ></p>
+
 <h2>Full Outer Join:</h2>
 
 <p>A full outer join will produce <strong>the complete set of records from both tables</strong>.  Wherever there is no match, the value will be &#8216;null&#8217;.</p>
+
+<p><img class="center" src="/images/3ringbinder7.jpg" title="'join column'" ></p>
 
 <h2>Conclusion:</h2>
 

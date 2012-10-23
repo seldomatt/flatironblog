@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>MiddleWHERE? Rack and Sinatra - SeldomBlog</title>
+  <meta name="author" content="seldomatt">
+
+  
+  <meta name="description" content="In this post we&#8217;ll be discussing Rack and Sinatra, two Ruby libraries for processing HTTP requests. Though Rack is somewhat the bumbling robot &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.seldomatt.com/blog/2012/10/23/middlewhere-rack-and-sinatra/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="SeldomBlog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35538476-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">SeldomBlog</a></h1>
+  
+    <h2>Artist. Musician. Programmer-to-be.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.seldomatt.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">MiddleWHERE? Rack and Sinatra</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-23T09:21:00-04:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>In this post we&#8217;ll be discussing <strong>Rack</strong> and <strong>Sinatra</strong>, two Ruby libraries for processing HTTP requests.  Though Rack is somewhat the bumbling robot to Sinatra&#8217;s martini drinking cad, they&#8217;re both very simple-yet-powerful gems for allowing your Ruby app to interact with web requests.</p>
+
+<p><img class="center" src="/images/robotandsinatra.jpg" width="600" height="600" title="'rack and sinatra'" ></p>
+
+<h2>HTTP REQUESTS</h2>
+
+<p>Though most of us have been browsing the internet since we were young, the actual mechanics of how your browser grabs Justin Beiber&#8217;s latest tweet and outputs it to your screen are a complete mystery (why you would <em>want</em> to do this is another mystery&#8230;).  In very basic terms, the browser submits a request for information, which travels through a web server and up to an application, where that request is processed and a response is sent back down the chain to the browser.</p>
+
+<p><img class="center" src="/images/sinatra1.jpg" width="500" height="500" title="'web requests'" ></p>
+
+<p>This seems simple enough, but for your application, communicating with web servers can be a complicated process.  For Ruby web apps, there are numerous different web servers (Mongrel, Thin, WEBrick, etc.), all of which process the requests coming from web browsers differently, and none of which your app will inherently know what to do with.</p>
+
+<h2>RACK</h2>
+
+<p>Rack, (called middleware because it goes in the <strong>&#8216;middle&#8217;</strong> of your app and a web server), aims to simplify this process.  It filters and wraps the HTTP requests coming from the web server and formats them in a way that your app can understand.</p>
+
+<p><img class="center" src="/images/sinatra2.jpg" width="500" height="500" title="'rack middleware'" ></p>
+
+<p> A Rack application will respond to a <strong>&#8216;call&#8217;</strong> method, which takes as it&#8217;s single argument a hash that contains information about the HTTP <strong>&#8216;request&#8217;</strong>.  The call method returns an array containing the response status code (ex. 401, ouch), response headers, and response body as an array of strings:</p>
+
+<figure class='code'><figcaption><span>Simple Rack App</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rack&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">RackApp</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;Content-Type&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;text/html&quot;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="o">[</span><span class="mi">200</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span> <span class="o">[</span><span class="s2">&quot;OK&quot;</span><span class="o">]]</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">run</span> <span class="no">RackApp</span><span class="o">.</span><span class="n">new</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Rack acts as a butler of sorts for your application, answering the door and translating requests into a language your app can understand.  It also communicates your responses to the outside world, in this case a range of web servers with varying functionality, in a format they can <strong>ALL</strong> understand, which is pretty sweet.</p>
+
+<h2>SINATRA</h2>
+
+<p>Though it delivers some great functionality, you may have noticed Rack isn&#8217;t the suavest of communicators.  Here, ol&#8217; Blue Eyes can really smooth out the edges.</p>
+
+<p><img class="center" src="/images/sinatra3.jpg" width="500" height="500" title="'sinatra'" ></p>
+
+<p><strong>Sinatra</strong>, a DSL (domain specific language) for creating web apps in Ruby, strolls in, cigarette in hand, to abstract away messy HTTP request processing with a stupid simple syntax for interacting with Rack and Web Servers&#8230;</p>
+
+<figure class='code'><figcaption><span>Simple Sinatra App</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="s2">&quot;OK&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The above code block will give us the same functionality as our Rack app, but as you can see, the syntax is much easier to understand.  With Sinatra, setting up your app to handle various web requests (so far we&#8217;ve only covered &#8216;get&#8217;, but there are also &#8216;post&#8217;, &#8216;put&#8217;, &#8216;delete&#8217; and others) is a breeze.  Furthermore, for those apps that perhaps don&#8217;t need the robust functionality of Rails, it can be a great framework to get a simple web app up and running quickly and efficiently.</p>
+
+<h2>CONCLUSION</h2>
+
+<p>Sinatra and Rack Middleware allow your app to interact with the web in a clean and efficient way, letting you concentrate on building out the real functionality of your product while they take care of the dirty work.</p>
+
+<p><em>NOTE: This post is highly indebted to an amazingly simple, funny, and informative Rack/Sinatra talk given by Tom Black. <a href="http://www.blacktm.com/docs/talks/building_web_apps_with_rack_and_sinatra" title="Tom Black Rack/Sinatra Talk">Go check it out</a>, now.</em></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">seldomatt</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-23T09:21:00-04:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.seldomatt.com/blog/2012/10/23/middlewhere-rack-and-sinatra/" data-via="seldomatt" data-counturl="http://blog.seldomatt.com/blog/2012/10/23/middlewhere-rack-and-sinatra/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/10/17/about-sql-joins-the-3-ring-binder-model/" title="Previous Post: About SQL Joins: the 3 Ring Binder Model">&laquo; About SQL Joins: the 3 Ring Binder Model</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/23/middlewhere-rack-and-sinatra/">MiddleWHERE? Rack and Sinatra</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/17/about-sql-joins-the-3-ring-binder-model/">About SQL Joins: the 3 Ring Binder Model</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown/">Blocks vs. Procs vs. Lambdas: Ruby Closure Showdown</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/08/bash-and-the-one-true-path/">BASH and The One True Path</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/seldomatt">@seldomatt</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'seldomatt',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("seldomatt", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/seldomatt" class="twitter-follow-button" data-show-count="false">Follow @seldomatt</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - seldomatt -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

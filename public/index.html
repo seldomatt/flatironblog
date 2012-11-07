@@ -9,7 +9,7 @@
   <meta name="author" content="seldomatt">
 
   
-  <meta name="description" content="In this post we&#8217;ll be discussing Rack and Sinatra, two Ruby libraries for processing HTTP requests. Though Rack is somewhat the bumbling robot &hellip;">
+  <meta name="description" content="&#8216;Slice&#8217;. &#8216;Pop&#8217;. &#8216;Chunk&#8217;. &#8216;Squeeze&#8217;. While you might think these words were picked from a list of old &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,92 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/06/by-any-other-name-my-3-favorite-ruby-method-names/">By Any Other Name: My 3 Favorite Ruby Method Names</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-06T13:36:00-05:00" pubdate data-updated="true">Nov 6<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/methnames1.jpg" title="'ruby method names'" >
+<strong>&#8216;Slice&#8217;</strong>.  <strong>&#8216;Pop&#8217;</strong>. <strong>&#8216;Chunk&#8217;</strong>. <strong>&#8216;Squeeze&#8217;</strong>.  While you might think these words were picked from a list of old comic book sound effects, (and they likely could&#8217;ve been), they&#8217;re actually just a few of Ruby&#8217;s wildly evocative method names.  As a language built on expressivity and with it&#8217;s fair share of syntactic sugar, Ruby boasts a number of methods whose descriptive names act as metaphors for the sometimes abstract operations they perform.  Not only does this aid in remembering methods when you need them, <em>(hmm, I wonder which method will let me &#8216;pop&#8217; that last element out of the array&#8230;)</em>, but it also turns you, the programmer, into a carpenter or sorts, manipulating and using objects in a so-close-to-real-you-can-almost-smell-the-sawdust kind of way.  In this post, we&#8217;ll take a look at my three favorite Ruby method names: <strong>Tap</strong>, <strong>Inject</strong>, and <strong>Send</strong>.</p>
+
+<h2>Tap</h2>
+
+<p><img class="center" src="/images/methnames2.jpg" title="'tap method'" ></p>
+
+<p>When called on an object, &#8216;tap&#8217; yields that object to a block where other operations can be performed on it, and then returns the object to the method chain.</p>
+
+<figure class='code'><figcaption><span>Simple Use of Tap </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">cool_method</span> <span class="o">=</span> <span class="s2">&quot;pat&quot;</span><span class="o">.</span><span class="n">reverse</span><span class="o">.</span><span class="n">tap</span><span class="p">{</span><span class="o">|</span><span class="n">object</span><span class="o">|</span> <span class="n">object</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;!&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">upcase</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While Ruby&#8217;s API says the method is so-named because it&#8217;s used to &#8216;tap into&#8217; a method chain, for me, tap brings to mind a game of pool, where the receiver is the cue ball.  Calling &#8216;tap&#8217; does just that - it gives the cue ball (receiver object) a light tap, sending it to the block where operations are carried out.  It&#8217;s then sent along to the next method in the chain, or in our metaphor, the next billiard ball.
+While I&#8217;m no pool shark, this helps me to understand the way in which tap momentarily changes the trajectory of an object in a method chain, sending it to the block for processing before it returns to the chain, like pool balls banking off a felted rail.</p>
+
+<h2>Inject</h2>
+
+<p><img class="center" src="/images/methnames3.jpg" width="600" height="600" title="'inject method'" ></p>
+
+<p>Inject is an enumerable method that will combine all the elements in the enum object by applying an operation specified by a block.  When given a block, for each element in the enumerable, the block is passed both the accumulator value (or memo) and the element.  A simple example would be using inject to sum all elements in an array.</p>
+
+<figure class='code'><figcaption><span>Simple Use of Inject</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">sum</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">inject</span><span class="p">{</span><span class="o">|</span><span class="n">memo</span><span class="p">,</span> <span class="n">element</span><span class="o">|</span> <span class="n">memo</span> <span class="o">+</span> <span class="n">element</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://kcurtin.github.com/blog/2012/10/30/rubys-each-with-object/" title="Kevin Curtin Each With Object post">While some people prefer the similar but much less evocatively named &#8216;each_with_object&#8217; method</a>(and I might be inclined to agree with them), based on name alone, &#8216;inject&#8217; is the most expressive representation of what the operation is actually doing.  In essence, the block &#8216;injects&#8217; the result of it&#8217;s expression into the memo each time it&#8217;s invoked, allowing for the powerful functionality of being able to act on a dynamically generated memo value.</p>
+
+<h2>Send</h2>
+
+<p><img class="center" src="/images/methnames4.jpg" width="600" height="600" title="'send method'" ></p>
+
+<p>&#8216;Send&#8217; is used to call a method on an object in a more abstract way then simply calling the method.  It takes the method being called as an argument, and any arguments for that method as additional arguments to send.
+When you send a method to an object, it&#8217;s as if you&#8217;re putting that method into an envelope and mailing it to the receiver.  What&#8217;s powerful about &#8216;send&#8217; is that the contents of that letter (the method call and arguments) can be dynamically generated.</p>
+
+<figure class='code'><figcaption><span>Simple Use of Send</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="s2">&quot;upcase&quot;</span><span class="o">].</span><span class="n">map</span> <span class="k">do</span> <span class="o">|</span><span class="nb">method</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">method</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">method</span><span class="o">.</span><span class="n">to_sym</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There are lot&#8217;s of ways to send a message.  Flowers on a doorstep.  Graffiti on a wall.  Dead fish in a newspaper.  In all cases, sending a message is a more abstract way of telling someone what you want, similar to the way in which &#8216;send&#8217; is a more dynamic and abstract way of calling a method on an object.</p>
+
+<h2>CONCLUSION</h2>
+
+<p>These are just a few of the methods whose names can paint a vivid picture of the operations they perform.  Names like these can go a long way in making programmers emotionally invested in the sometimes esoteric tasks being performed.  So next time you use the &#8216;tap&#8217; method, don&#8217;t be alarmed if you find yourself rubbing the chalk off your fingers&#8230;.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -582,6 +668,10 @@ This is your PATH environment variable.  It&#8217;s a list of directories that B
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/11/06/by-any-other-name-my-3-favorite-ruby-method-names/">By Any Other Name: My 3 Favorite Ruby Method Names</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/10/23/middlewhere-rack-and-sinatra/">MiddleWHERE? Rack and Sinatra</a>

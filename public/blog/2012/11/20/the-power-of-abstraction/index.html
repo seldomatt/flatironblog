@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>The Power of Abstraction - SeldomBlog</title>
+  <meta name="author" content="seldomatt">
+
+  
+  <meta name="description" content="&#8216;Objects are smarter when they know less.&#8217; Objects should know what, and trust other objects to figure out how. Nuggets of wisdom like &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.seldomatt.com/blog/2012/11/20/the-power-of-abstraction/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="SeldomBlog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35538476-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">SeldomBlog</a></h1>
+  
+    <h2>Artist. Musician. Programmer-to-be.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.seldomatt.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">The Power of Abstraction</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-20T12:19:00-05:00" pubdate data-updated="true">Nov 20<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img class="center" src="/images/metzartwork.jpg" title="'power of abstraction'" >
+<em>&#8216;Objects are smarter when they know less.&#8217;</em> Objects should know <em>what</em>, and trust other objects to figure out <em>how.</em>  Nuggets of wisdom like these pepper the pages of <a href="http://www.poodr.info/" title="Sandy Metz POODR">Sandy Metz&#8217;s &#8216;Practical Object-Oriented Design in Ruby&#8217;</a>.  These principles are as abstract as the code they aim to inspire, and, consequentially, as powerful.  In art and music, the concept that abstraction enables a greater range of interpretation and deeper meaning is widely acknowledged, but it seems perhaps counter-intuitive that this same principle would apply to code.  However, as Metz states, the most important feature of well designed code is it&#8217;s ability to adapt to the changes that will inevitably come.  With this in mind, it becomes easier to understand how less explicit objects can reduce dependencies and allow for a greater range of application.  Let&#8217;s take a look at an example from POODR.</p>
+
+<h2>Duck Typing</h2>
+
+<p>In Chapter 5 of her book, Metz explores <em>duck typing</em>, or defining public interfaces (messages passed from one object to another) that are not tied to any explicit class.  For me, this is an especially compelling example of the ways in which abstracting away details can make your objects more powerful.  The book&#8217;s example uses a Trip object that sends the message &#8216;prepare&#8217; to various other objects, including a Mechanic and a TripCoordinator.</p>
+
+<figure class='code'><figcaption><span>Metz Trip Prepare Example</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Trip</span>
+</span><span class='line'>  <span class="kp">attr_reader</span> <span class="ss">:bicycles</span><span class="p">,</span> <span class="ss">:customers</span><span class="p">,</span> <span class="ss">:vehicle</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="n">preparers</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">preparers</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">preparer</span><span class="o">|</span>
+</span><span class='line'>      <span class="k">case</span> <span class="n">preparer</span>
+</span><span class='line'>      <span class="k">when</span> <span class="no">Mechanic</span>
+</span><span class='line'>        <span class="n">preparer</span><span class="o">.</span><span class="n">prepare_bicyles</span><span class="p">(</span><span class="n">bicycles</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">when</span> <span class="no">TripCoordinator</span>
+</span><span class='line'>        <span class="n">preparer</span><span class="o">.</span><span class="n">buy_food</span><span class="p">(</span><span class="n">customers</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">when</span> <span class="no">Driver</span>
+</span><span class='line'>        <span class="n">preparer</span><span class="o">.</span><span class="n">gas_up</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">preparer</span><span class="o">.</span><span class="n">fill_water_tank</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Mechanic</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">prepare_bicycles</span><span class="p">(</span><span class="n">bicycles</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1">#prepare bicycles implementation</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">TripCoordinator</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">buy_food</span><span class="p">(</span><span class="n">customers</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1">#buy food implementation</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Driver</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">gas_up</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1">#gas up implementation</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">fill_water_tank</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1">#fill water tank implementation</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In this implementation, which contains very little abstraction, there are a dangerous number of dependencies.  Through it&#8217;s &#8216;prepare&#8217; message, Trip knows not only <em>which</em> objects will receive this message (Mechanic, TripCoordinator, Driver), but <em>how</em> those objects prepare for a trip (prepare_bicycles, buy_food, gas_up, etc.).  If in the future, we decide that there must be some other object helping to prepare for a trip (perhaps a &#8216;Mom&#8217; object that packs a paper bag lunch ; ), we would need to explicitly add this class to the case statement inside &#8216;prepare&#8217; and include it&#8217;s &#8216;pack_lunch&#8217; method call, all in the Trip object.  Furthermore, if the Driver, who&#8217;s getting quite snobby, decides it no longer will &#8216;gas_up&#8217; vehicles, but &#8216;replenish_fuel_source_through_use_of_nozzle_guided_device&#8217;, it will break Trip&#8217;s &#8216;prepare&#8217; method, which explicitly calls Driver&#8217;s &#8216;gas_up&#8217; method.</p>
+
+<h2>Refactor</h2>
+
+<p>We can see that by being too tied to specific classes, we&#8217;ve made our code extremely specific and stubbornly opposed to change.  Let&#8217;s take a look at Metz&#8217;s example of the above code refactored to use duck typing:</p>
+
+<figure class='code'><figcaption><span>Metz Trip Prepare with Duck Typing</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Trip</span>
+</span><span class='line'>  <span class="kp">attr_reader</span> <span class="ss">:bicycles</span><span class="p">,</span> <span class="ss">:customers</span><span class="p">,</span> <span class="ss">:vehicle</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="n">preparers</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">preparers</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">preparer</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">preparer</span><span class="o">.</span><span class="n">prepare_trip</span><span class="p">(</span><span class="nb">self</span><span class="p">)}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Mechanic</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">prepare_trip</span><span class="p">(</span><span class="n">trip</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">trip</span><span class="o">.</span><span class="n">bicycles</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">bicycle</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">prepare_bicycles</span><span class="p">(</span><span class="n">bicycle</span><span class="p">)}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">TripCoordinator</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">prepare_trip</span><span class="p">(</span><span class="n">trip</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">buy_food</span><span class="p">(</span><span class="n">trip</span><span class="o">.</span><span class="n">customers</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Driver</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">prepare_trip</span><span class="p">(</span><span class="n">trip</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">vehicle</span> <span class="o">=</span> <span class="n">trip</span><span class="o">.</span><span class="n">vehicle</span>
+</span><span class='line'>    <span class="n">gas_up</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">fill_water_tank</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Trip&#8217;s &#8216;prepare&#8217; message, by not calling any specific classes, can now be used with any object that responds to a &#8216;prepare_trip&#8217; message.  If we were to add a &#8216;Mom&#8217; object to pack a lunch, a &#8216;Chaperone&#8217; object to watch over customers, or a &#8216;SpiritGuide&#8217; object to help customers through the toughest parts of the journey, NOTHING needs to change about Trip&#8217;s &#8216;prepare&#8217; message.  All we have to do is ensure that all additional preparer objects have a &#8216;prepare_trip&#8217; method, which will encapsulate their class specific implementation of that call (make_lunch, supervise_customers, um, guide_spirit?).  By making Trip&#8217;s public interface more about <em>what</em> then <em>how</em>, we&#8217;ve reduced dependencies and made our code much more receptive to change.</p>
+
+<h2>CONCLUSION</h2>
+
+<p>By making our objects more abstract, we transform them from a Michelangelo to a Picasso, traversing centuries of artistic progress with a single keystroke.  While the David is beautiful, it&#8217;s a concrete representation of a single immutable thing.  Abstraction, on the other hand, allows the viewer to project their own interpetations onto a piece, allowing for an almost infinite number of meanings.  In this same way, abstract code that relies more on <em>what</em> is happening then <em>how</em> it happens, and is duck typed to eliminate class dependencies, can be used in any number of ways, and fulfills the adaptability requirement of good design.</p>
+
+<p><em>(NOTE: To anyone who finds these topics compelling, is interested in doing any sort of Object Oriented coding, or just likes reading books that make you smarter, follow the link in the first paragraph and check out Sandy Metz&#8217;s &#8216;Practical Object Oriented Design in Ruby&#8217;)</em></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">seldomatt</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-20T12:19:00-05:00" pubdate data-updated="true">Nov 20<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.seldomatt.com/blog/2012/11/20/the-power-of-abstraction/" data-via="seldomatt" data-counturl="http://blog.seldomatt.com/blog/2012/11/20/the-power-of-abstraction/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/06/by-any-other-name-my-3-favorite-ruby-method-names/" title="Previous Post: By Any Other Name: My 3 Favorite Ruby Method Names">&laquo; By Any Other Name: My 3 Favorite Ruby Method Names</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/11/20/the-power-of-abstraction/">The Power of Abstraction</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/06/by-any-other-name-my-3-favorite-ruby-method-names/">By Any Other Name: My 3 Favorite Ruby Method Names</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/23/middlewhere-rack-and-sinatra/">MiddleWHERE? Rack and Sinatra</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/17/about-sql-joins-the-3-ring-binder-model/">About SQL Joins: the 3 Ring Binder Model</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown/">Blocks vs. Procs vs. Lambdas: Ruby Closure Showdown</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/seldomatt">@seldomatt</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'seldomatt',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("seldomatt", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/seldomatt" class="twitter-follow-button" data-show-count="false">Follow @seldomatt</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - seldomatt -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

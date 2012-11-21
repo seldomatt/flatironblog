@@ -6,7 +6,7 @@ comments: true
 categories: 
 ---
 {% img center /images/metzartwork.jpg 'power of abstraction' %}
-*'Objects are smarter when they know less.'* Objects should know *what*, and trust other objects to figure out *how.*  Nuggets of wisdom like these pepper the pages of [Sandy Metz's 'Practical Object-Oriented Design in Ruby'](http://www.poodr.info/ "Sandy Metz POODR").  These principles are as abstract as the code they aim to inspire, and, consequentially, as powerful.  In art and music, the concept that abstraction enables a greater range of interpretation and deeper meaning is widely acknowledged, but it seems perhaps counter-intuitive that this same principle would apply to code.  However, as Metz states, the most important feature of well designed code is it's ability to adapt to the changes that will inevitably come.  With this in mind, it becomes easier to understand how less explicit objects can reduce dependencies and allow for a greater range of application.  Let's take a look at an example from POODR.
+*'Objects are smarter when they know less.'* Objects should know *what*, and trust other objects to figure out *how.*  Nuggets of wisdom like these pepper the pages of [Sandi Metz's 'Practical Object-Oriented Design in Ruby'](http://www.poodr.info/ "Sandi Metz POODR").  These principles are as abstract as the code they aim to inspire, and, consequentially, as powerful.  In art and music, the concept that abstraction enables a greater range of interpretation and deeper meaning is widely acknowledged, but it seems perhaps counter-intuitive that this same principle would apply to code.  However, as Metz states, the most important feature of well designed code is it's ability to adapt to the changes that will inevitably come.  With this in mind, it becomes easier to understand how less explicit objects can reduce dependencies and allow for a greater range of application.  Let's take a look at an example from POODR.
 
 ##Duck Typing##
 
@@ -94,7 +94,7 @@ Trip's 'prepare' message, by not calling any specific classes, can now be used w
 
 By making our objects more abstract, we transform them from a Michelangelo to a Picasso, traversing centuries of artistic progress with a single keystroke.  While the David is beautiful, it's a concrete representation of a single immutable thing.  Abstraction, on the other hand, allows the viewer to project their own interpetations onto a piece, allowing for an almost infinite number of meanings.  In this same way, abstract code that relies more on *what* is happening then *how* it happens, and is duck typed to eliminate class dependencies, can be used in any number of ways, and fulfills the adaptability requirement of good design.
 
-*(NOTE: To anyone who finds these topics compelling, is interested in doing any sort of Object Oriented coding, or just likes reading books that make you smarter, follow the link in the first paragraph and check out Sandy Metz's 'Practical Object Oriented Design in Ruby')*
+*(NOTE: To anyone who finds these topics compelling, is interested in doing any sort of Object Oriented coding, or just likes reading books that make you smarter, follow the link in the first paragraph and check out Sandi Metz's 'Practical Object Oriented Design in Ruby')*
 
 
 

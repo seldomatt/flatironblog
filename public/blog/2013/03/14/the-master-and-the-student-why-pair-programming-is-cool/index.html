@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>The Master and the Student: Why Pair Programming is Cool - SeldomBlog</title>
+  <meta name="author" content="seldomatt">
+
+  
+  <meta name="description" content="I’ve taken a brief hiatus from blogging over the past few months, for which I can offer no excuse other than that I’ve had my head down working on &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.seldomatt.com/blog/2013/03/14/the-master-and-the-student-why-pair-programming-is-cool/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="SeldomBlog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35538476-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">SeldomBlog</a></h1>
+  
+    <h2>Artist. Musician. Programmer-to-be.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.seldomatt.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">The Master and the Student: Why Pair Programming Is Cool</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-14T12:06:00-04:00" pubdate data-updated="true">Mar 14<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img class="center" src="/images/pairprogrammingkaratekid.jpg" title="'power of abstraction'" >
+I’ve taken a brief hiatus from blogging over the past few months, for which I can offer no excuse other than that I’ve had my head down working on an awesome <a href="http://www.rubymotion.com/" title="RubyMotion">RubyMotion</a> app for a client (the banjo I got for Christmas may also have had something to do with it…).  During this time, I’ve had the amazing opportunity to pair program, every day, with two senior developers at my current company, Cyrus Innovation - David A. Black (author of the <a href="http://www.rubypowerandlight.com/well_grounded_rubyist" title="The Well Grounded Rubyist"><em>Well-Grounded Rubyist</em></a>), and Paul Infield-Harm, (Director of Product Development at Cyrus).   This experience has led me to formulate some pretty strong views on the benefits of pair programming. I wanted to share a few of them in the hopes that those of you who find yourselves trying to justify pair programming to clients or co-workers, (especially pairing between devs of different skill/experience levels), can have some arguments to reference, or at the least, someone to blame!</p>
+
+<h2>Discussion and Knowledge Sharing</h2>
+
+<p>Pairing leads to a lot of top down discussion, from design to implementation, allowing the passenger to learn through questioning and the driver to refine and clarify their approach for the purpose of explaining it to the other person.  When working out some timing issues with asynchronous calls in our app, Paul, David and I engaged in some group discussion and documentation digging about the various ways to call block arguments from nested block methods (yield vs. block.call).  Had we been soloing, this exploration would have made <em>one</em> developer more knowledgeable. Instead, <em>three</em> developers, prodded by the challenges of the project, eachothers&#8217; curiosity, and maybe even wanting to be the first one to find the answer, gained some valuable knowledge about how block arguments are handled in Ruby.</p>
+
+<h2>Confidence Building</h2>
+
+<p>Pairing also builds confidence for both members.  For a junior like me, being given the chance to drive on a specific refactoring or debugging session can be a big boost to your nascent coding confidence.  For a senior developer, being asked to explain a specific concept or design decision can reinforce his/her already solid understanding of concepts and help them to move forward without apprehension.  Having the confidence to express your opinions and try to implement them is a great skill to have, and pairing can provide positive reinforcement to both partners.</p>
+
+<h2>Communication Skills</h2>
+
+<p>As a junior, one of the greatest challenges can be finding ways to explain your programming questions in an eloquent manner to people who have been doing this for years.  Pairing necessitates this kind of interaction, and, as with anything else, one gets better with practice.  For senior developers, getting accustomed to explaining highly technical concepts to others can be very valuable, especially in client/customer/product owner interactions, when the person you&#8217;re speaking to oftentimes lacks substantial technical know-how.  In pairing with Paul and David, I was motivated to formulate my own thoughts and opinions better, which necessitated closer documentation reading and more experimentation on my own, both of which are great practice for a beginner looking to hone their skills.  Likewise, I was continually impressed by Paul and David’s ability to communicate complex concepts in a clear, simple, and concise manner, the sign of true experts.</p>
+
+<h2>Pair!</h2>
+
+<p>I know there are situations where pairing might not yield these same kinds of results, though I can’t help but feel that’s a product of less than enthusiastic participants or misplaced priorities.  I have the pleasure of working on a team with two consummate programmers, with whom I’ve had many productive and informative pairing sessions.  For this reason, I’m extremely thankful to Paul, David, and <a href="http://www.cyrusinnovation.com/" title="Cyrus Innovation">Cyrus Innovation</a> for the experience, and more than a little wary of anyone who dismisses pair programming as inefficient or unproductive.  So give it a try, and let me know if you need someone to pair with ;)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">seldomatt</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-14T12:06:00-04:00" pubdate data-updated="true">Mar 14<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.seldomatt.com/blog/2013/03/14/the-master-and-the-student-why-pair-programming-is-cool/" data-via="seldomatt" data-counturl="http://blog.seldomatt.com/blog/2013/03/14/the-master-and-the-student-why-pair-programming-is-cool/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/20/the-power-of-abstraction/" title="Previous Post: The Power of Abstraction">&laquo; The Power of Abstraction</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/14/the-master-and-the-student-why-pair-programming-is-cool/">The Master and the Student: Why Pair Programming is Cool</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/20/the-power-of-abstraction/">The Power of Abstraction</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/06/by-any-other-name-my-3-favorite-ruby-method-names/">By Any Other Name: My 3 Favorite Ruby Method Names</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/23/middlewhere-rack-and-sinatra/">MiddleWHERE? Rack and Sinatra</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/17/about-sql-joins-the-3-ring-binder-model/">About SQL Joins: the 3 Ring Binder Model</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/seldomatt">@seldomatt</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'seldomatt',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("seldomatt", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/seldomatt" class="twitter-follow-button" data-show-count="false">Follow @seldomatt</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - seldomatt -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

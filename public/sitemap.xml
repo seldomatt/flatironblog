@@ -2,46 +2,52 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://blog.seldomatt.com/blog/2012/10/08/bash-and-the-one-true-path/</loc>
-        <lastmod>2012-10-15T09:58:50-04:00</lastmod>
+        <lastmod>2014-01-13T22:00:48-05:00</lastmod>
     </url>
     <url>
         <loc>
             http://blog.seldomatt.com/blog/2012/10/14/blocks-vs-procs-vs-lambdas-ruby-closure-showdown/
         </loc>
-        <lastmod>2012-10-15T09:58:48-04:00</lastmod>
+        <lastmod>2014-01-13T22:00:48-05:00</lastmod>
     </url>
     <url>
         <loc>
             http://blog.seldomatt.com/blog/2012/10/17/about-sql-joins-the-3-ring-binder-model/
         </loc>
-        <lastmod>2012-10-17T12:57:47-04:00</lastmod>
+        <lastmod>2014-01-13T22:00:48-05:00</lastmod>
     </url>
     <url>
         <loc>http://blog.seldomatt.com/blog/2012/10/23/middlewhere-rack-and-sinatra/</loc>
-        <lastmod>2012-10-23T10:01:21-04:00</lastmod>
+        <lastmod>2014-01-13T22:00:48-05:00</lastmod>
     </url>
     <url>
         <loc>
             http://blog.seldomatt.com/blog/2012/11/06/by-any-other-name-my-3-favorite-ruby-method-names/
         </loc>
-        <lastmod>2012-11-20T12:22:10-05:00</lastmod>
+        <lastmod>2014-01-13T22:00:48-05:00</lastmod>
     </url>
     <url>
         <loc>http://blog.seldomatt.com/blog/2012/11/20/the-power-of-abstraction/</loc>
-        <lastmod>2012-11-21T09:38:14-05:00</lastmod>
+        <lastmod>2014-01-13T22:00:48-05:00</lastmod>
     </url>
     <url>
         <loc>
             http://blog.seldomatt.com/blog/2013/03/14/the-master-and-the-student-why-pair-programming-is-cool/
         </loc>
-        <lastmod>2013-03-14T15:09:04-04:00</lastmod>
+        <lastmod>2014-01-14T07:52:50-05:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://blog.seldomatt.com/blog/2014/01/14/french-press-bringing-meaning-to-the-surface/
+        </loc>
+        <lastmod>2014-01-14T19:44:05-05:00</lastmod>
     </url>
     <url>
         <loc>http://blog.seldomatt.com/blog/archives/</loc>
-        <lastmod>2013-03-14T15:09:04-04:00</lastmod>
+        <lastmod>2014-01-14T19:44:05-05:00</lastmod>
     </url>
     <url>
         <loc>http://blog.seldomatt.com/</loc>
-        <lastmod>2013-03-14T15:09:04-04:00</lastmod>
+        <lastmod>2014-01-14T19:44:05-05:00</lastmod>
     </url>
 </urlset>
